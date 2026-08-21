@@ -1,0 +1,61 @@
+name: Build JERSYNC V2 Windows v2.0.3
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Inno Setup
+        shell: powershell
+        run: |
+          choco install innosetup -y --no-progress
+
+      - name: Find Inno Setup
+        id: inno
+        shell: powershell
+        run: |
+          $iscc = Get-ChildItem `
+            -Path "C:\Program Files*", "C:\ProgramData\chocolatey" `
+            -Filter "ISCC.exe" `
+            -Recurse `
+            -ErrorAction SilentlyContinue |
+            Select-Object -First 1 -ExpandProperty FullName
+
+          if (-not $iscc) {
+            throw "ISCC.exe not found"
+          }
+
+          "iscc=$iscc" >> $env:GITHUB_OUTPUT
+
+      - name: Verify builder files
+        shell: powershell
+        run: |
+          if (-not (Test-Path ".\JERSYNC_V2_Windows_2020Plus_v2.0.3.iss")) {
+            throw "ISS file not found"
+          }
+
+          if (-not (Test-Path ".\JERSYNC_V2")) {
+            throw "JERSYNC_V2 folder not found"
+          }
+
+      - name: Build installer
+        shell: powershell
+        run: |
+          & "${{ steps.inno.outputs.iscc }}" ".\JERSYNC_V2_Windows_2020Plus_v2.0.3.iss"
+
+          if ($LASTEXITCODE -ne 0) {
+            throw "JERSYNC V2 build failed"
+          }
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: JERSYNC-V2-Windows-v2.0.3
+          path: Output/JERSYNC_V2_Installer_Windows_2020Plus_v2.0.3.exe
+          if-no-files-found: error
