@@ -1,4 +1,4 @@
-name: Build JERSYNC V2 Windows v2.0.3
+name: Build JERSYNC V2 Windows v2.0.5
 
 on:
   workflow_dispatch:
@@ -36,7 +36,7 @@ jobs:
       - name: Verify builder files
         shell: powershell
         run: |
-          if (-not (Test-Path ".\JERSYNC_V2_Windows_2020Plus_v2.0.3.iss")) {
+          if (-not (Test-Path ".\JERSYNC_V2_Windows_2020Plus_v2.0.5.iss")) {
             throw "ISS file not found"
           }
 
@@ -47,7 +47,7 @@ jobs:
       - name: Build installer
         shell: powershell
         run: |
-          & "${{ steps.inno.outputs.iscc }}" ".\JERSYNC_V2_Windows_2020Plus_v2.0.3.iss"
+          & "${{ steps.inno.outputs.iscc }}" ".\JERSYNC_V2_Windows_2020Plus_v2.0.5.iss"
 
           if ($LASTEXITCODE -ne 0) {
             throw "JERSYNC V2 build failed"
@@ -56,6 +56,6 @@ jobs:
       - name: Upload installer
         uses: actions/upload-artifact@v4
         with:
-          name: JERSYNC-V2-Windows-v2.0.3
-          path: Output/JERSYNC_V2_Installer_Windows_2020Plus_v2.0.3.exe
+          name: JERSYNC-V2-Windows-v2.0.5
+          path: Output/JERSYNC_V2_Installer_Windows_2020Plus_v2.0.5.exe
           if-no-files-found: error
