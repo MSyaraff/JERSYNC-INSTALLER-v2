@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JERSYNC V2</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <div>
+      <div class="eyebrow">SOLO CREATIVE • JERSYNC V2</div>
+      <div class="title-row">
+        <h1>JERSYNC V2</h1>
+        <span class="badge">v2.0.6</span>
+      </div>
+      <div class="sub">MULTI PATTERN ENGINE • SMART QUEUE • CMYK</div>
+    </div>
+  </header>
+
+  <section class="color-mode-panel">
+    <div class="color-mode-panel-head">
+      <div>
+        <div class="color-mode-title">COLOR MODE</div>
+        <div class="color-mode-sub">Pilih warna dokumen output</div>
+      </div>
+      <div class="color-mode-switch" id="colorModeSwitch">
+        <label>
+          <input type="radio" name="colorMode" value="CMYK" checked>
+          <span>CMYK</span>
+        </label>
+        <label>
+          <input type="radio" name="colorMode" value="RGB">
+          <span>RGB</span>
+        </label>
+      </div>
+    </div>
+  </section>
+
+<section class="panel">
+    <div class="panel-title">MASTER POLA</div>
+    <div class="help">Master terakhir akan diingati. Pilih semula hanya jika mahu tukar master.</div>
+    <div class="row">
+      <input id="masterPath" type="text" readonly placeholder="Belum pilih JERSYNC V2 MASTER.ai">
+      <button id="chooseMaster" class="btn secondary compact">FILE</button>
+    </div>
+  </section>
+
+  <section class="panel builder-panel">
+    <div class="panel-title">PILIH POLA</div>
+    <div class="form-grid compact-selects">
+      <div>
+        <label>Jenis pola</label>
+        <select id="patternType">
+          <option value="RN">RN</option>
+          <option value="POLO">POLO</option>
+          <option value="VNECK">VNECK</option>
+          <option value="MUSV">MUSV</option>
+          <option value="VFLAT">VFLAT</option>
+        <option value="KIDS">KIDS</option>
+        </select>
+      </div>
+      <div>
+        <label>Lengan</label>
+        <select id="patternSleeve">
+          <option value="SS">SS</option>
+          <option value="LS">LS</option>
+          <option value="BOTH">BOTH</option>
+        </select>
+      </div>
+    </div>
+    <div class="tag-override-row">
+      <label>Nama Tag <span class="tag-optional">optional</span></label>
+      <input id="tagTypeOverride" type="text" placeholder="Default ikut jenis pola">
+    </div>
+    <div class="size-picker-wrap">
+      <label>Saiz</label>
+      <div id="sizePicker" class="size-picker"><button type="button" class="size-chip" data-size="XS">XS</button><button type="button" class="size-chip" data-size="S">S</button><button type="button" class="size-chip" data-size="M">M</button><button type="button" class="size-chip" data-size="L">L</button><button type="button" class="size-chip" data-size="XL">XL</button><button type="button" class="size-chip" data-size="2XL">2XL</button><button type="button" class="size-chip" data-size="3XL">3XL</button><button type="button" class="size-chip" data-size="4XL">4XL</button><button type="button" class="size-chip" data-size="5XL">5XL</button><button type="button" class="size-chip" data-size="6XL">6XL</button><button type="button" class="size-chip" data-size="7XL">7XL</button><button type="button" class="size-chip" data-size="8XL">8XL</button><button type="button" class="size-chip" data-size="9XL">9XL</button><button type="button" class="size-chip" data-size="10XL">10XL</button></div></div>
+    <button id="addPatterns" class="btn primary">+ TAMBAH POLA</button>
+  </section>
+
+  <section class="panel">
+    <div class="queue-head">
+      <div>
+        <div class="panel-title">LIST JENIS & SAIZ POLA</div>
+    <div class="list-description">Semak jenis dan saiz baju di bawah</div>
+      </div>
+      <button id="clearQueue" class="text-btn">CLEAR</button>
+    </div>
+
+    <div id="queue" class="queue empty">
+      <div class="empty-msg">Belum ada job.</div>
+    </div>
+  </section>
+<section class="panel collapsible-panel">
+    <button id="advancedToggle" class="collapse-head" type="button">
+      <span>ADVANCED</span>
+      <span id="advancedArrow">⌄</span>
+    </button>
+    <div id="advancedBody" class="collapse-body hidden">
+      <label class="toggle-row">
+        <span>FIXED_OBJECT</span>
+        <input id="fixedObjects" type="checkbox" checked>
+        <i></i>
+      </label>
+      <label class="toggle-row">
+        <span>Label Saiz</span>
+        <input id="sizeLabelOn" type="checkbox" checked>
+        <i></i>
+      </label>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-title">STROKE</div>
+    <div class="stroke-top">
+      <label class="toggle-row compact-toggle">
+        <span>Aktifkan Stroke</span>
+        <input id="strokeOn" type="checkbox" checked>
+        <i></i>
+      </label>
+    </div>
+    <div class="stroke-grid">
+      <div>
+        <label>Ketebalan</label>
+        <div class="unit-input">
+          <input id="strokeWidth" type="number" min="0" max="10" step="0.1" value="0.5">
+          <span>pt</span>
+        </div>
+      </div>
+      <div>
+        <label>Warna</label>
+        <select id="strokeColor">
+          <option>Black</option>
+          <option>White</option>
+          <option>Red</option>
+          <option>Blue</option>
+          <option>Green</option>
+          <option>Yellow</option>
+          <option>Magenta</option>
+          <option>Cyan</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <div class="layout-note">
+    STANDARD 4×2 • MUSV 3×2 • auto split file
+  </div>
+
+  <section class="panel">
+    <div class="panel-title">OUTPUT</div>
+    <div class="row">
+      <input id="outputPath" type="text" readonly placeholder="Belum pilih lokasi save .ai">
+      <button id="chooseOutput" class="btn secondary compact">SAVE AS</button>
+    </div>
+  </section>
+
+  <button id="generate" class="btn generate">GENERATE V2</button>
+
+  <div id="status" class="status">Ready.</div>
+
+  <div class="mini-check-row">
+    <button id="checkArtwork" class="mini-check-btn">CHECK ARTWORK</button>
+    <span id="artworkState" class="mini-check-state">Belum disemak</span>
+  </div>
+
+  <section class="panel update-panel">
+    <div class="update-head">
+      <div>
+        <div class="panel-title">UPDATE</div>
+        <div class="update-small">Semak versi JERSYNC V2 terbaru</div>
+      </div>
+      <span id="currentVersionBadge" class="mini-badge">v2.0.0</span>
+    </div>
+
+    <div class="update-status-card">
+      <div class="update-status-top">
+        <div>
+          <div id="updateState" class="update-state">Belum disemak</div>
+          <div id="updateMeta" class="update-meta">Versi semasa: v2.0.0</div>
+        </div>
+        <div id="updateDot" class="update-dot idle"></div>
+      </div>
+
+      <div id="updateNotes" class="update-notes">Internet hanya digunakan apabila semak update.</div>
+
+      <div id="changelogWrap" class="changelog-wrap hidden">
+        <div class="changelog-title">APA YANG BARU</div>
+        <div id="updateChangelog" class="update-changelog"></div>
+      </div>
+    </div>
+
+    <div class="update-actions">
+      <button id="checkUpdates" class="btn secondary update-btn">CHECK FOR UPDATES</button>
+      <button id="downloadUpdate" class="btn generate update-download hidden">DOWNLOAD UPDATE</button>
+    </div>
+
+    <div id="installHint" class="install-hint hidden">
+      Selepas download: tutup Illustrator sepenuhnya, install versi baru, kemudian buka semula JERSYNC V2.
+    </div>
+  </section>
+
+</div>
+
+<script src="CSInterface.js"></script>
+<script src="index.js"></script>
+</body>
+</html>
