@@ -1,4 +1,4 @@
-name: Build JERSYNC V2 Windows v2.0.6 Cache Fix
+name: Build JERSYNC V2 Windows v2.1.0 Cache Fix
 
 on:
   workflow_dispatch:
@@ -36,7 +36,7 @@ jobs:
       - name: Verify builder files
         shell: powershell
         run: |
-          if (-not (Test-Path ".\JERSYNC_V2_Windows_2020Plus_v2.0.6.iss")) {
+          if (-not (Test-Path ".\JERSYNC_V2_Windows_2020Plus_v2.1.0.iss")) {
             throw "ISS file not found"
           }
 
@@ -47,7 +47,7 @@ jobs:
       - name: Build installer
         shell: powershell
         run: |
-          & "${{ steps.inno.outputs.iscc }}" ".\JERSYNC_V2_Windows_2020Plus_v2.0.6.iss"
+          & "${{ steps.inno.outputs.iscc }}" ".\JERSYNC_V2_Windows_2020Plus_v2.1.0.iss"
 
           if ($LASTEXITCODE -ne 0) {
             throw "JERSYNC V2 build failed"
@@ -56,7 +56,7 @@ jobs:
       - name: Verify installer
         shell: powershell
         run: |
-          $installer = ".\Output\JERSYNC_V2_Installer_Windows_2020Plus_v2.0.6_CacheFix.exe"
+          $installer = ".\Output\JERSYNC_V2_Installer_Windows_2020Plus_v2.1.0_CacheFix.exe"
 
           if (-not (Test-Path $installer)) {
             throw "Installer EXE not found"
@@ -68,6 +68,6 @@ jobs:
       - name: Upload installer artifact
         uses: actions/upload-artifact@v4
         with:
-          name: JERSYNC-V2-Windows-v2.0.6-CacheFix
-          path: Output/JERSYNC_V2_Installer_Windows_2020Plus_v2.0.6_CacheFix.exe
+          name: JERSYNC-V2-Windows-v2.1.0-CacheFix
+          path: Output/JERSYNC_V2_Installer_Windows_2020Plus_v2.1.0_CacheFix.exe
           if-no-files-found: error
